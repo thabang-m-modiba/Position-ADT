@@ -72,6 +72,11 @@ public class PositionalList<E> {
 	public Position<E> addBefore(Position<E> p, E element){
 		return null;
 	}
+	/**
+	 * This method removes a position from the list
+	 * @param p - the position to be removed
+	 * @return the element
+	 */
 	public E remove(Position<E> p) {
 		Node<E> node = (Node<E>) p;
 		if(node == head) {
@@ -87,5 +92,14 @@ public class PositionalList<E> {
 		size--;
 		return node.getElement();
 	 }
+	public void printList() {
+		Node<E> current = head;
+		
+		while(current != null) {
+			System.out.print(current.getElement() + " -> ");
+			current = current.getNext();
+		}
+		System.out.println("null");
+	}
 
 }

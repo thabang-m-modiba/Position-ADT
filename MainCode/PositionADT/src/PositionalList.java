@@ -69,8 +69,28 @@ public class PositionalList<E> {
 		size++;
 		return newNode;
 	}
+	/**
+	 * This method adds a new element in a position before an already existing position
+	 * @param p - an already existing position
+	 * @param element - an element to be added
+	 * @return - new node
+	 */
 	public Position<E> addBefore(Position<E> p, E element){
-		return null;
+		Node<E> node = (Node<E>) p;
+		Node<E> newNode = new Node<>(element, node);
+		
+		// If inserting before head
+		if(node == head) {
+			head = newNode;
+		}else {
+			Node<E> current = head;
+			//Find the node before p
+			while(current != null && current.getNext() != node) {
+				current = current.getNext();
+			}
+		}
+		size++;
+		return newNode;
 	}
 	/**
 	 * This method removes a position from the list

@@ -103,6 +103,12 @@ public class TaskManager {
 		    }
 		}
 		
+		// TO-DO List
+		/**
+		 * 1. Fix adding list
+		 * 2. Add option to clear the binary file
+		 */
+		
 		scanner.close();
 	}
 }

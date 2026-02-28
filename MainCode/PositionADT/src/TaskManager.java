@@ -21,8 +21,9 @@ public class TaskManager {
 	/**
 	 * The main method
 	 * @param args
+	 * @throws PriorityOutOfRange 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws PriorityOutOfRange {
 		
 		Scanner scanner = new Scanner(System.in);
 		
@@ -48,6 +49,9 @@ public class TaskManager {
 		    	
 		    	System.out.print("Enter task priority: ");
 		    	int taskPriority = scanner.nextInt();
+		    	if(taskPriority < 0 || taskPriority > 6) {
+		    		throw new PriorityOutOfRange("Priority Out of Range");
+		    	}
 		    	
 		    	System.out.print("Enter task status: ");
 		    	String status = scanner.next();

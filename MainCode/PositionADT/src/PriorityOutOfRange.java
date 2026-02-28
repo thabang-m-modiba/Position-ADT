@@ -6,9 +6,6 @@
  * This class handles Exception for when a user enters priority number that's out of range
  */
 public class PriorityOutOfRange extends Exception{
-	/**
-	 * ?
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**

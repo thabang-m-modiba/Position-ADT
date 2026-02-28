@@ -2,10 +2,16 @@
  * @author Thabang Mamoloko
  */
 
+import java.io.Serializable;
+
 /**
  * 
  */
-public class Task {
+public class Task implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int taskID;
 	private String taskName;
 	private int priotity;

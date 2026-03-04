@@ -17,6 +17,7 @@
 * Instead of:
   * <code>add(int index, E element)</code>
 * We use:
+  * <code>addFirst()</code>
   * <code>addBefore(Position<E> p, E element)</code>
   * <code>addAfter(Position<E> p, E element)</code>
   * <code>remove(Position<E> p)</code>

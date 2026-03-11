@@ -5,121 +5,112 @@
 /**
  * 
  */
-public class PositionalList<E> {
-	private Node<E> head = null;
+public class PositionalList<E> implements IList<E>{
+	private Node<E> header = null;
+	private Node<E> trailer = null;
 	private int size = 0;
-	/**
-	 * This method returns the size of the list
-	 * @return size
-	 */
-	public int size() {
-		return size;
-	}
-	/**
-	 * This method returns true is the list is empty
-	 * @return a boolean value
-	 */
-	public boolean isEmpty() {
-		return size == 0;
-	}
-	/**
-	 * This method returns the first position in the list
-	 * @return head
-	 */
-	public Position<E> first(){
-		return head;
-	}
-	public Position<E>last(){
-		return null;
-	}public Position<E> before(Position<E> p){
-		return null;
-	}
-	public Position<E> after(Position<E> p){
-		return null;
-	}
-	/**
-	 * Method to insert new node in the first position
-	 * @param element - element to insert
-	 * @return newNode
-	 */
-	public Position<E> addFirst(E element){
-		Node<E> newNode = new Node<>(element, head);
-		head = newNode;
-		size++;
+	
+	@Override
+	public Position<E> addFirst(E element) {
+		// TODO Auto-generated method stub
+		Node<E> newNode = new Node<>(element, null, header);
+		if(isEmpty()) {
+			trailer = newNode;
+		}else {
+			header.setPrev(newNode);
+		}
+		header = newNode;
 		return newNode;
 	}
-	/*
-	public Position<E> addLast(E element){
-		Node<E> newNode = new Node<>(element, head.getNext());
-		head.getNext() = element;
-		size++;
+	@Override
+	public Position<E> addLast(E element) {
+		// TODO Auto-generated method stub
+		Node<E> newNode = new Node<>(element, trailer, null);
+		if(isEmpty()) {
+			header = newNode;
+		}else {
+			trailer.setNext(newNode);
+		}
+		trailer = newNode;
 		return newNode;
 	}
-	*/
-	/**
-	 * This method adds a new element after an already existing element
-	 * @param p - an already existing element
-	 * @param element - element to be added
-	 * @return - newNode
-	 */
-	public Position<E> addAfter(Position<E> p, E element){
+	@Override
+	public Position<E> addAfter(E element, Position<E> p) {
+		// TODO Auto-generated method stub
+		if(p == null) {
+			throw new IllegalArgumentException("Position cannot be null");
+		}
 		Node<E> node = (Node<E>) p;
-		Node<E> newNode = new Node<>(element, node.getNext());
+		Node<E> newNode = new Node<>(element, node, node.getNext());
+		
+		if(node.getNext() != null) {
+			node.getNext().setPrev(newNode);
+		}else {
+			trailer = header;
+		}
 		node.setNext(newNode);
 		size++;
 		return newNode;
 	}
-	/**
-	 * This method adds a new element in a position before an already existing position
-	 * @param p - an already existing position
-	 * @param element - an element to be added
-	 * @return - new node
-	 */
-	public Position<E> addBefore(Position<E> p, E element){
-		Node<E> node = (Node<E>) p;
-		Node<E> newNode = new Node<>(element, node);
-		
-		// If inserting before head
-		if(node == head) {
-			head = newNode;
-		}else {
-			Node<E> current = head;
-			//Find the node before p
-			while(current != null && current.getNext() != node) {
-				current = current.getNext();
-			}
+	@Override
+	public Position<E> addBefore(E element, Position<E> p) {
+		// TODO Auto-generated method stub
+		if(p == null) {
+			throw new IllegalArgumentException("Position cannot be null");
 		}
+		Node<E> node = (Node<E>) p;
+		Node<E> newNode = new Node<>(element, node.getPrev(), node);
+		if(node.getPrev() != null) {
+			node.getPrev().setNext(newNode);
+		}else {
+			header = newNode;
+		}
+		node.setPrev(newNode);
 		size++;
 		return newNode;
 	}
-	/**
-	 * This method removes a position from the list
-	 * @param p - the position to be removed
-	 * @return the element
-	 */
+	@Override
 	public E remove(Position<E> p) {
+		// TODO Auto-generated method stub
 		Node<E> node = (Node<E>) p;
-		if(node == head) {
-			head = head.getNext();
+		Node<E> prevNode = node.getPrev();
+		Node<E> nextNode = node.getNext();
+		
+		if(prevNode != null) {
+			prevNode.setNext(nextNode);
 		}else {
-			Node<E> current = head;
-			
-			while(current.getNext() != node) {
-				current = current.getNext();
-			}
-			current.setNext(node.getNext());
+			header = prevNode;
+		}
+		
+		if(nextNode != null) {
+			nextNode.setPrev(prevNode);
+		}else {
+			trailer = nextNode;
 		}
 		size--;
 		return node.getElement();
-	 }
+	}
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return size;
+	}
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return size == 0;
+	}
+	@Override
 	public void printList() {
-		Node<E> current = head;
-		
+		// TODO Auto-generated method stub
+		Node<E> current = header;
 		while(current != null) {
-			System.out.print(current.getElement() + " -> ");
+			System.out.print(current.getElement() + " <-> ");
 			current = current.getNext();
 		}
 		System.out.println("null");
+		
 	}
+	
 
 }
